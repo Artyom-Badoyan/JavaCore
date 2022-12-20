@@ -27,8 +27,14 @@ public class IfForExample {
        Օրինակ a=95, b=100. կտպի 95,96,97,98,99,100
         */
 
-        for (int i = a; i <= b; i++) {
-            System.out.print(i + " ");
+        if (a < b) {
+            for (int i = a; i <= b; i++) {
+                System.out.print(i + " ");
+            }
+        } else {
+            for (int i = b; i <= a; i++) {
+                System.out.print(i + " ");
+            }
         }
         System.out.println();
         System.out.println("*********************");
@@ -36,6 +42,11 @@ public class IfForExample {
         /*
          Փոխակերպել a-ի արժեքը char-տիպի, ու տպել թե ինչ սինվոլ ստացվեց։ Նույնը b-ի համար։
          */
+
+        System.out.println((char) a);
+        System.out.println((char) b);
+
+        System.out.println("*********************");
 
         char c = 95;
         System.out.println("a-ի արժեքը = char " + c);
