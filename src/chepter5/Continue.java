@@ -9,5 +9,13 @@ public class Continue {
             }
             System.out.println("");
         }
+
+        int i = 10;
+        int j = 25;
+        int k = 200;
+        int a = 8;
+        int b = 18;
+        int c = 5;
+        int d = 0;
     }
 }

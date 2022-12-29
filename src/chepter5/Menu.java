@@ -15,8 +15,7 @@ public class Menu {
             choice = (char) System.in.read();
 
         } while (choice < '1' || choice > '5');
-        System.out.println("\n");
-
+            System.out.println("\n");
         switch (choice) {
             case '1':
                 System.out.println("if: \n");
