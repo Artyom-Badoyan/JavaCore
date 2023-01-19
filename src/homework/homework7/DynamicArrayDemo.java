@@ -19,6 +19,6 @@ public class DynamicArrayDemo {
         dynamicArray.add(14);
         dynamicArray.add(15);
         dynamicArray.print();
-        System.out.println(dynamicArray.getByIndex(5));
+        System.out.println(dynamicArray.getByIndex(19));
     }
 }
