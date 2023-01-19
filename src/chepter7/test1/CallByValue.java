@@ -1,6 +1,6 @@
 package chepter7.test1;
 
-public class CallByValue1 {
+public class CallByValue {
     public static void main(String[] args) {
         Test ob = new Test();
         int a = 15, b = 20;
