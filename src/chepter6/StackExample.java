@@ -2,14 +2,14 @@ package chepter6;
 
 public class StackExample {
 
-    int[] array = new int[10];
-    int tos;
+    private int[] array = new int[10];
+    private int tos;
 
     public StackExample() {
         tos = -1;
     }
 
-    void push(int item) {
+    public void push(int item) {
         if (tos == 9) {
             System.out.println("в StackExample места заполнено: ");
         } else {
@@ -17,7 +17,7 @@ public class StackExample {
         }
     }
 
-    int pop() {
+    public int pop() {
         if (tos == -1) {
             System.out.println(" StackExample пустой: ");
             return 0;

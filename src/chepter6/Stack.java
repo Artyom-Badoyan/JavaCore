@@ -2,14 +2,14 @@ package chepter6;
 
 public class Stack {
 
-    int array[] = new int[10];
-    int tos;
+    private int array[] = new int[10];
+    private int tos;
 
-    Stack() {
+    public Stack() {
         tos = -1;
     }
 
-    void push(int item) {
+    public void push(int item) {
         if (tos == 9) {
             System.out.println("Cтeк заполнен.");
         } else {
@@ -17,7 +17,7 @@ public class Stack {
         }
     }
 
-    int pop() {
+    public int pop() {
         if (tos < 0) {
             System.out.println("Cтeк не загружен.");
             return 0;
