@@ -1,4 +1,4 @@
-package chepter7.test2;
+package chepter7.test.test2;
 
 public class PassObjRe {
     public static void main(String[] args) {

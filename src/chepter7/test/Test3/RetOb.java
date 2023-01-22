@@ -1,4 +1,4 @@
-package chepter7.Test3;
+package chepter7.test.Test3;
 
 public class RetOb {
     public static void main(String[] args) {

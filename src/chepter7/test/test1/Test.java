@@ -1,4 +1,4 @@
-package chepter7.test1;
+package chepter7.test.test1;
 
 public class Test {
 

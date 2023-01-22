@@ -1,4 +1,4 @@
-package chepter7.test;
+package chepter7.test.test5;
 
 public class PassOb {
     public static void main(String[] args) {
