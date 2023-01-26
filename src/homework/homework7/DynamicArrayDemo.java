@@ -8,15 +8,20 @@ public class DynamicArrayDemo {
         dynamicArray.add(3);
         dynamicArray.add(4);
         dynamicArray.add(5);
-        dynamicArray.add(5);
-        dynamicArray.add(5);
+        dynamicArray.add(6);
+        dynamicArray.add(7);
+        dynamicArray.add(8);
+        dynamicArray.add(9);
+        dynamicArray.add(10);
 
         dynamicArray.print();
-        dynamicArray.deleteByIndex(3);
+        dynamicArray.deleteByIndex(7);
         dynamicArray.set(3, 40);
-        dynamicArray.add(4, 50);
-        System.out.println(dynamicArray.exists(10));
-        System.out.println(dynamicArray.getIndexByValue(5));
-        System.out.println(dynamicArray.getByIndex(2));
+        dynamicArray.add(1, 25);
+        System.out.println(dynamicArray.exists(2));
+        System.out.println(dynamicArray.getIndexByValue(4));
+        System.out.println(dynamicArray.getByIndex(3));
+
+
     }
 }
