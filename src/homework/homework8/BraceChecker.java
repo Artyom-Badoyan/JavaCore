@@ -7,7 +7,7 @@ public class BraceChecker {
         this.text = text;
     }
 
-    public void check() {
+    protected void check() {
         Stack stack = new Stack();
 
         for (int i = 0; i < text.length(); i++) {
