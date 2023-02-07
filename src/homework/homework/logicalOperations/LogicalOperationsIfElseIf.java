@@ -1,4 +1,4 @@
-package homework.homework;
+package homework.homework.logicalOperations;
 
 public class LogicalOperationsIfElseIf {
     public static void main(String[] args) {
