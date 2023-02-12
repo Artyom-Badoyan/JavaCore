@@ -2,55 +2,44 @@ package homework.homework9.employee;
 
 public class EmployeeStorage {
 
-    private Employee[] array = new Employee[10];
+    private Employee[] employees = new Employee[10];
     private int size = 0;
 
     public void add(Employee employee) {
-        if (size == array.length) {
+        if (employees.length == size) {
             extend();
         }
-        array[size++] = employee;
+        employees[size++] = employee;
     }
 
     private void extend() {
-        Employee[] tmp = new Employee[array.length + 10];
-        for (int i = 0; i < size; i++) {
-            tmp[i] = array[i];
-        }
-        array = tmp;
+        Employee[] tmp = new Employee[employees.length + 10];
+        System.arraycopy(employees, 0, tmp, 0, size);
+        employees = tmp;
     }
 
     public void print() {
         for (int i = 0; i < size; i++) {
-            System.err.println(array[i] + " ");
+            System.out.println(employees[i]);
         }
     }
 
-    public void searchById(String id) {
-        boolean found = false;
+    public Employee getEmployeeById(String id) {
         for (int i = 0; i < size; i++) {
-            Employee employee = array[i];
-            if (employee.getEmployeeId().contains(id)) {
-                found = true;
-                System.err.println(employee);
+            Employee employee = employees[i];
+            if (employee.getEmployeeId().equals(id)) {
+                return employees[i];
             }
         }
-        if (!found) {
-            System.err.println("employee with " + id + "does not exists");
-        }
+        return null;
     }
 
-    public void searchCompanyName(String companyName) {
-        boolean found = false;
+    public void searchEmployeeByCompanyName(String companyName) {
         for (int i = 0; i < size; i++) {
-            Employee employee = array[i];
+            Employee employee = employees[i];
             if (employee.getCompany().contains(companyName)) {
-                found = true;
-                System.err.println(employee);
+                System.out.println(employees[i]);
             }
-        }
-        if (!found) {
-            System.err.println("company name with " + companyName + "does not exists");
         }
     }
 }
