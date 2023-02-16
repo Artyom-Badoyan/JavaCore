@@ -8,7 +8,7 @@ public class Employee {
     private double salary;
     private String company;
     private String position;
-    private boolean active;
+    private boolean active = true;
 
     public Employee(String name, String surname, String employeeId, double salary, String company, String position) {
         this.name = name;

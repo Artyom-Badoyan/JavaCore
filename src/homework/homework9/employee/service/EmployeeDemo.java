@@ -14,7 +14,8 @@ public class EmployeeDemo {
         boolean isRun = true;
 
         while (isRun) {
-            commands();
+
+            printCommands();
 
             String command = scanner.nextLine();
             switch (command) {
@@ -23,18 +24,18 @@ public class EmployeeDemo {
                 case "2" -> employeeStorage.print();
                 case "3" -> getEmployeeById();
                 case "4" -> searchEmployeeCompanyName();
-                case "5" -> employeeSalaryRange();
-                case "6" -> changeEmployeePositionById();
-                case "7" -> inactiveEmployeeById();
-                case "8" -> activateEmployeeById();
-                case "9" -> printActiveEmployees();
+                case "5" -> searchEmployeeBySalaryRange();
+                case "6" -> changePositionByEmployeeId();
+                case "7" -> employeeStorage.printByStatus(true);
+                case "8" -> inactivateEmployee();
+                case "9" -> activateEmployee();
                 default -> System.out.println("Wrong command Please try again.");
 
             }
         }
     }
 
-    private static void commands() {
+    private static void printCommands() {
         System.out.println("Please input 0 for exit");
         System.out.println("Please input 1 for add employee");
         System.out.println("Please input 2 for print employees");
@@ -42,57 +43,66 @@ public class EmployeeDemo {
         System.out.println("Please input 4 for search employee by company name");
         System.out.println("Please input 5 for search employee by salary range");
         System.out.println("Please input 6 for change employee position by id");
-        System.out.println("Please input 7 for inactive employee by id");
-        System.out.println("Please input 8 for activate employee by id");
-        System.out.println("Please input 9 for print only active employees");
+        System.out.println("Please input 7 for print only active employees");
+        System.out.println("Please input 8 for inactivate employee by id");
+        System.out.println("Please input 9 for activate employee by id");
     }
 
-    private static void printActiveEmployees() {
-        System.out.println("Print only active employees");
-        employeeStorage.printOnlyActiveEmployees();
-    }
-
-    private static void activateEmployeeById() {
-        System.out.println("please input by id employee");
+    private static void activateEmployee() {
+        employeeStorage.printByStatus(false);
+        System.out.println("please choose employee id");
         String employeeId = scanner.nextLine();
+        employeeStorage.getEmployeeById(employeeId);
         Employee employee = employeeStorage.getEmployeeById(employeeId);
-        if (employee == null) {
-            System.out.println("employee with " + employeeId + " id dose not exists");
+        if (employee == null || employee.isActive()) {
+            System.out.println("Wrong employee ID, or employee is active. Please try again!");
         } else {
-            employeeStorage.inActiveEmployeeById(employeeId);
+            employee.setActive(true);
+            System.out.println("Status changed!");
         }
     }
 
-    private static void inactiveEmployeeById() {
-        System.out.println("please input by id employee");
+    private static void inactivateEmployee() {
+        employeeStorage.printByStatus(true);
+        System.out.println("please choose employee id");
         String employeeId = scanner.nextLine();
+        employeeStorage.getEmployeeById(employeeId);
         Employee employee = employeeStorage.getEmployeeById(employeeId);
-        if (employee == null) {
-            System.out.println("employee with " + employeeId + " id dose not exists");
+        if (employee == null || !employee.isActive()) {
+            System.out.println("Wrong employee ID, or employee is inactive. Please try again!");
         } else {
-            employeeStorage.activeEmployeeById(employeeId);
+            employee.setActive(false);
+            System.out.println("Status changed!");
         }
     }
 
-    private static void changeEmployeePositionById() {
-        System.out.println("please input by id employee");
+    private static void changePositionByEmployeeId() {
+        employeeStorage.print();
+        System.out.println("please choose employee id");
         String employeeId = scanner.nextLine();
+        employeeStorage.getEmployeeById(employeeId);
         Employee employee = employeeStorage.getEmployeeById(employeeId);
         if (employee == null) {
-            System.out.println("employee with " + employeeId + " id dose not exists");
+            System.out.println("Wrong employee ID, please try again!");
         } else {
-            System.out.println("please input positions employee");
-            String employeePositions = scanner.nextLine();
-            employeeStorage.changeEmployeePositionInId(employeeId, employeePositions);
+            System.out.println("please input new position name");
+            String position = scanner.nextLine();
+            employee.setPosition(position);
+            System.out.println("Position changed!");
         }
     }
 
-    private static void employeeSalaryRange() {
-        System.out.println("Please input the employee's min wage");
-        double min = Double.parseDouble(scanner.nextLine());
-        System.out.println("Please input the employee's max wage");
-        double max = Double.parseDouble(scanner.nextLine());
-        employeeStorage.searchEmployeeSalaryRange(min, max);
+    private static void searchEmployeeBySalaryRange() {
+        System.out.println("Please input minPrice, maxPrice");
+        String salaryRangeStr = scanner.nextLine();
+        String[] salaryRange = salaryRangeStr.split(",");
+        Double minPrice = Double.parseDouble(salaryRange[0]);
+        Double maxPrice = Double.parseDouble(salaryRange[1]);
+        if (maxPrice < minPrice) {
+            System.out.println("minPrice should be less then maxPrice");
+            return;
+        }
+        employeeStorage.searchBySalaryRange(minPrice, maxPrice);
     }
 
     private static void searchEmployeeCompanyName() {
@@ -122,7 +132,6 @@ public class EmployeeDemo {
             Employee employee = new Employee(employeeData[0], employeeData[1], employeeId,
                     Double.parseDouble(employeeData[3]), employeeData[4], employeeData[5]);
             employeeStorage.add(employee);
-            employeeStorage.active(employee);
             System.out.println("Employee was added!");
         } else {
             System.out.println("Employee with " + employeeId + " id already exists");

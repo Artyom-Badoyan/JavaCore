@@ -26,6 +26,14 @@ public class EmployeeStorage {
         }
     }
 
+    public void printByStatus(boolean isActive) {
+        for (int i = 0; i < size; i++) {
+            if (employees[i].isActive() == isActive) {
+                System.out.println(employees[i]);
+            }
+        }
+    }
+
     public Employee getEmployeeById(String id) {
         for (int i = 0; i < size; i++) {
             if (employees[i].getEmployeeId().equals(id)) {
@@ -43,40 +51,10 @@ public class EmployeeStorage {
         }
     }
 
-    public void searchEmployeeSalaryRange(double min, double max) {
+    public void searchBySalaryRange(double minPrice, double maxPrice) {
         for (int i = 0; i < size; i++) {
-            if (employees[i].getSalary() >= min && employees[i].getSalary() <= max) {
+            if (employees[i].getSalary() >= minPrice && employees[i].getSalary() <= maxPrice) {
                 System.out.println(employees[i]);
-            }
-        }
-    }
-
-    public void changeEmployeePositionInId(String id, String positions) {
-        for (int i = 0; i < size; i++) {
-            if (employees[i].getEmployeeId().equals(id)) {
-                employees[i].setPosition(positions);
-                System.out.println(employees[i]);
-                break;
-            }
-        }
-    }
-
-    public void activeEmployeeById(String id) {
-        for (int i = 0; i < size; i++) {
-            if (employees[i].getEmployeeId().equals(id)) {
-                employees[i].setActive(false);
-                System.out.println(employees[i]);
-                break;
-            }
-        }
-    }
-
-    public void active(Employee employee) {
-        for (int i = 0; i < size; i++) {
-            if (employees[i].equals(employee)) {
-                employees[i].setActive(true);
-                System.out.println(employees[i]);
-                break;
             }
         }
     }
@@ -85,18 +63,6 @@ public class EmployeeStorage {
         for (int i = 0; i < size; i++) {
             if (employees[i].isActive() == true) {
                 System.out.println(employees[i]);
-            }
-        }
-    }
-
-    public void inActiveEmployeeById(String id) {
-        for (int i = 0; i < size; i++) {
-            if (employees[i].getEmployeeId().equals(id) && employees[i].isActive() == false) {
-                employees[i].setActive(true);
-                System.out.println(employees[i]);
-                break;
-            } else if (employees[i].isActive() == true) {
-                System.out.println("This worker's asset has been set to true " + employees[i]);
             }
         }
     }
