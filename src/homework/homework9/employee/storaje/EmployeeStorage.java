@@ -58,13 +58,5 @@ public class EmployeeStorage {
             }
         }
     }
-
-    public void printOnlyActiveEmployees() {
-        for (int i = 0; i < size; i++) {
-            if (employees[i].isActive() == true) {
-                System.out.println(employees[i]);
-            }
-        }
-    }
 }
 
