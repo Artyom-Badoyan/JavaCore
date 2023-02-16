@@ -1,4 +1,6 @@
-package homework.homework9.employee;
+package homework.homework9.employee.storaje;
+
+import homework.homework9.employee.model.Employee;
 
 public class EmployeeStorage {
 

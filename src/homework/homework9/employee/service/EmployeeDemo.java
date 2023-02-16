@@ -1,4 +1,7 @@
-package homework.homework9.employee;
+package homework.homework9.employee.service;
+
+import homework.homework9.employee.model.Employee;
+import homework.homework9.employee.storaje.EmployeeStorage;
 
 import java.util.Scanner;
 
@@ -8,20 +11,10 @@ public class EmployeeDemo {
     private static EmployeeStorage employeeStorage = new EmployeeStorage();
 
     public static void main(String[] args) {
-
         boolean isRun = true;
 
         while (isRun) {
-            System.out.println("Please input 0 for exit");
-            System.out.println("Please input 1 for add employee");
-            System.out.println("Please input 2 for print employees");
-            System.out.println("Please input 3 for search employee by id");
-            System.out.println("Please input 4 for search employee by company name");
-            System.out.println("Please input 5 for search employee by salary range");
-            System.out.println("Please input 6 for change employee position by id");
-            System.out.println("Please input 7 for inactive employee by id");
-            System.out.println("Please input 8 for activate employee by id");
-            System.out.println("Please input 9 for print only active employees");
+            commands();
 
             String command = scanner.nextLine();
             switch (command) {
@@ -39,6 +32,19 @@ public class EmployeeDemo {
 
             }
         }
+    }
+
+    private static void commands() {
+        System.out.println("Please input 0 for exit");
+        System.out.println("Please input 1 for add employee");
+        System.out.println("Please input 2 for print employees");
+        System.out.println("Please input 3 for search employee by id");
+        System.out.println("Please input 4 for search employee by company name");
+        System.out.println("Please input 5 for search employee by salary range");
+        System.out.println("Please input 6 for change employee position by id");
+        System.out.println("Please input 7 for inactive employee by id");
+        System.out.println("Please input 8 for activate employee by id");
+        System.out.println("Please input 9 for print only active employees");
     }
 
     private static void printActiveEmployees() {

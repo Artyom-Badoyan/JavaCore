@@ -1,4 +1,4 @@
-package homework.homework9.employee;
+package homework.homework9.employee.model;
 
 public class Employee {
 
