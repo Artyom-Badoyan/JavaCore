@@ -1,5 +1,6 @@
 package homework.homework9.employee.storaje;
 
+import homework.homework9.employee.model.Company;
 import homework.homework9.employee.model.Employee;
 
 public class EmployeeStorage {
@@ -43,9 +44,9 @@ public class EmployeeStorage {
         return null;
     }
 
-    public void searchEmployeeByCompanyName(String companyName) {
+    public void searchEmployeeByCompany(Company company) {
         for (int i = 0; i < size; i++) {
-            if (employees[i].getCompany().contains(companyName)) {
+            if (employees[i].getCompany().equals(company)) {
                 System.out.println(employees[i]);
             }
         }

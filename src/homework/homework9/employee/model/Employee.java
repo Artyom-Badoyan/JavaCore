@@ -1,22 +1,38 @@
 package homework.homework9.employee.model;
 
+
+import homework.homework9.employee.util.DateUtil;
+
+import java.util.Date;
+
 public class Employee {
 
     private String name;
     private String surname;
     private String employeeId;
     private double salary;
-    private String company;
+    private Company company;
     private String position;
     private boolean active = true;
+    private Date registerDate;
+    private Date dateOfBirthday;
 
-    public Employee(String name, String surname, String employeeId, double salary, String company, String position) {
+    public Employee(String name,
+                    String surname,
+                    String employeeId,
+                    double salary,
+                    Company company,
+                    String position,
+                    Date registerDate,
+                    Date dateOfBirthday) {
         this.name = name;
         this.surname = surname;
         this.employeeId = employeeId;
         this.salary = salary;
         this.company = company;
         this.position = position;
+        this.registerDate = registerDate;
+        this.dateOfBirthday = dateOfBirthday;
     }
 
     public Employee() {
@@ -54,11 +70,11 @@ public class Employee {
         this.salary = salary;
     }
 
-    public String getCompany() {
+    public Company getCompany() {
         return company;
     }
 
-    public void setCompany(String company) {
+    public void setCompany(Company company) {
         this.company = company;
     }
 
@@ -78,6 +94,22 @@ public class Employee {
         this.active = active;
     }
 
+    public Date getRegisterDate() {
+        return registerDate;
+    }
+
+    public void setRegisterDate(Date registerDate) {
+        this.registerDate = registerDate;
+    }
+
+    public Date getDateOfBirthday() {
+        return dateOfBirthday;
+    }
+
+    public void setDateOfBirthday(Date dateOfBirthday) {
+        this.dateOfBirthday = dateOfBirthday;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -94,7 +126,11 @@ public class Employee {
             return false;
         if (getCompany() != null ? !getCompany().equals(employee.getCompany()) : employee.getCompany() != null)
             return false;
-        return getPosition() != null ? getPosition().equals(employee.getPosition()) : employee.getPosition() == null;
+        if (getPosition() != null ? !getPosition().equals(employee.getPosition()) : employee.getPosition() != null)
+            return false;
+        if (getRegisterDate() != null ? !getRegisterDate().equals(employee.getRegisterDate()) : employee.getRegisterDate() != null)
+            return false;
+        return getDateOfBirthday() != null ? getDateOfBirthday().equals(employee.getDateOfBirthday()) : employee.getDateOfBirthday() == null;
     }
 
     @Override
@@ -109,6 +145,8 @@ public class Employee {
         result = 31 * result + (getCompany() != null ? getCompany().hashCode() : 0);
         result = 31 * result + (getPosition() != null ? getPosition().hashCode() : 0);
         result = 31 * result + (isActive() ? 1 : 0);
+        result = 31 * result + (getRegisterDate() != null ? getRegisterDate().hashCode() : 0);
+        result = 31 * result + (getDateOfBirthday() != null ? getDateOfBirthday().hashCode() : 0);
         return result;
     }
 
@@ -122,6 +160,8 @@ public class Employee {
                 ", company='" + company + '\'' +
                 ", position='" + position + '\'' +
                 ", active=" + active +
+                ", registerDate=" + DateUtil.dateToString(registerDate) +
+                ", dateOfBirthday=" + DateUtil.dateToString(dateOfBirthday) +
                 '}';
     }
 }
