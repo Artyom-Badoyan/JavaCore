@@ -8,7 +8,7 @@ public class CompanyStorage {
     private int size = 0;
 
     public void add(Company company) {
-        if (companies.length == size) {
+        if (size == companies.length) {
             extend();
         }
         companies[size++] = company;

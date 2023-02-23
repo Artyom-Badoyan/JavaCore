@@ -9,7 +9,7 @@ public class EmployeeStorage {
     private int size = 0;
 
     public void add(Employee employee) {
-        if (employees.length == size) {
+        if (size == employees.length) {
             extend();
         }
         employees[size++] = employee;

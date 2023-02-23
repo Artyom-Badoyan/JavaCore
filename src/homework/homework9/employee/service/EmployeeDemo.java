@@ -18,16 +18,20 @@ public class EmployeeDemo implements Commands {
     private static CompanyStorage companyStorage = new CompanyStorage();
 
 
-    public static void main(String[] args) throws ParseException {
+    public static void main(String[] args) {
 
         boolean isRun = true;
         Company company = new Company("company001", "company example", "Gyumri", "1234567");
         company.setEmployeeCount(3);
         companyStorage.add(company);
 
-        employeeStorage.add(new Employee("poxos", "poxosyan", "a001", 100, company, "jr. manager", new Date(), DateUtil.stringToDate("15/02/1989")));
-        employeeStorage.add(new Employee("petros", "petrosyan", "a002", 200, company, "manager", new Date(), DateUtil.stringToDate("20/05/1995")));
-        employeeStorage.add(new Employee("martiros", "martirosyan", "a003", 300, company, "sr. manager", new Date(), DateUtil.stringToDate("02/08/2000")));
+        try {
+            employeeStorage.add(new Employee("poxos", "poxosyan", "a001", 100, company, "jr. manager", new Date(), DateUtil.stringToDate("15/02/1989")));
+            employeeStorage.add(new Employee("petros", "petrosyan", "a002", 200, company, "manager", new Date(), DateUtil.stringToDate("20/05/1995")));
+            employeeStorage.add(new Employee("martiros", "martirosyan", "a003", 300, company, "sr. manager", new Date(), DateUtil.stringToDate("02/08/2000")));
+        } catch (ParseException e) {
+            System.out.println("please input the date in this format 25/02/2023");
+        }
 
         while (isRun) {
             Commands.printCommands();
@@ -114,13 +118,19 @@ public class EmployeeDemo implements Commands {
         System.out.println("Please input minPrice, maxPrice");
         String salaryRangeStr = scanner.nextLine();
         String[] salaryRange = salaryRangeStr.split(",");
-        Double minPrice = Double.parseDouble(salaryRange[0]);
-        Double maxPrice = Double.parseDouble(salaryRange[1]);
-        if (maxPrice < minPrice) {
-            System.out.println("minPrice should be less then maxPrice");
-            return;
+        try {
+            Double minPrice = Double.parseDouble(salaryRange[0]);
+            Double maxPrice = Double.parseDouble(salaryRange[1]);
+            if (maxPrice < minPrice) {
+                System.out.println("minPrice should be less then maxPrice");
+                return;
+            }
+            employeeStorage.searchBySalaryRange(minPrice, maxPrice);
+        } catch (NumberFormatException e) {
+            System.out.println("Incorrect number values, please try again");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Please input min and max salary.");
         }
-        employeeStorage.searchBySalaryRange(minPrice, maxPrice);
     }
 
     private static void searchEmployeeCompanyName() {
@@ -146,7 +156,7 @@ public class EmployeeDemo implements Commands {
         }
     }
 
-    private static void addEmployee() throws ParseException {
+    private static void addEmployee() {
         if (companyStorage.getSize() == 0) {
             System.out.println("Please add company first!");
             return;
@@ -162,9 +172,16 @@ public class EmployeeDemo implements Commands {
             String employeeId = employeeData[2];
             Employee employeeById = employeeStorage.getEmployeeById(employeeId);
             if (employeeById == null) {
-                Employee employee = new Employee(employeeData[0], employeeData[1],
-                        employeeId, Double.parseDouble(employeeData[3]), companyById,
-                        employeeData[4], new Date(), DateUtil.stringToDate(employeeData[5]));
+                Employee employee = null;
+                try {
+                    employee = new Employee(employeeData[0], employeeData[1],
+                            employeeId, Double.parseDouble(employeeData[3]), companyById,
+                            employeeData[4], new Date(), DateUtil.stringToDate(employeeData[5]));
+                } catch (ParseException e) {
+                    System.out.println("please input the date in this format 25/02/2023");
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("Please input name, surname, employeeId, salary, position, dateOfBirthday(15/02/2023)");
+                }
                 employeeStorage.add(employee);
                 companyById.setEmployeeCount(companyById.getEmployeeCount() + 1);
                 System.out.println("Employee was added!");
