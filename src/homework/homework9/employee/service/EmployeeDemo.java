@@ -3,8 +3,8 @@ package homework.homework9.employee.service;
 import homework.homework9.employee.Commands;
 import homework.homework9.employee.model.Company;
 import homework.homework9.employee.model.Employee;
-import homework.homework9.employee.storaje.CompanyStorage;
-import homework.homework9.employee.storaje.EmployeeStorage;
+import homework.homework9.employee.storage.CompanyStorage;
+import homework.homework9.employee.storage.EmployeeStorage;
 import homework.homework9.employee.util.DateUtil;
 
 import java.text.ParseException;

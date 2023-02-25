@@ -1,4 +1,4 @@
-package homework.homework9.employee.storaje;
+package homework.homework9.employee.storage;
 
 import homework.homework9.employee.model.Company;
 
