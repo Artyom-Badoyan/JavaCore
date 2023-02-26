@@ -3,9 +3,9 @@ package homework.homework10.medicalCenter.model;
 public class Doctor extends Person {
 
     private String email;
-    private String profession;
+    private Profession profession;
 
-    public Doctor(String id, String name, String surname, String phone, String email, String profession) {
+    public Doctor(String id, String name, String surname, String phone, String email, Profession profession) {
         super(id, name, surname, phone);
         this.email = email;
         this.profession = profession;
@@ -22,11 +22,11 @@ public class Doctor extends Person {
         this.email = email;
     }
 
-    public String getProfession() {
+    public Profession getProfession() {
         return profession;
     }
 
-    public void setProfession(String profession) {
+    public void setProfession(Profession profession) {
         this.profession = profession;
     }
 

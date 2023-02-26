@@ -3,6 +3,7 @@ package homework.homework10.medicalCenter.service;
 import homework.homework10.medicalCenter.Commands;
 import homework.homework10.medicalCenter.model.Doctor;
 import homework.homework10.medicalCenter.model.Patient;
+import homework.homework10.medicalCenter.model.Profession;
 import homework.homework10.medicalCenter.storage.PersonStorage;
 import homework.homework10.medicalCenter.util.DateUtil;
 
@@ -81,20 +82,26 @@ public class MedicalCenterDemo implements Commands {
 
     private static void changeDoctorData() {
         personStorage.printDoctors();
-        System.out.println("Please input id");
+        System.out.println("Please enter an ID and press Enter");
+        doctorProfession();
         String id = scanner.nextLine();
         Doctor doctorById = personStorage.getDoctorById(id);
         if (doctorById != null) {
             System.out.println("Please input name,surname,email,phoneNumber,profession");
             String doctorDataStr = scanner.nextLine();
             String[] doctorData = doctorDataStr.split(",");
-            doctorById.setName(doctorData[0]);
-            doctorById.setSurname(doctorData[1]);
-            doctorById.setEmail(doctorData[2]);
-            doctorById.setPhone(doctorData[3]);
-            doctorById.setProfession(doctorData[4]);
+            try {
+                doctorById.setName(doctorData[0]);
+                doctorById.setSurname(doctorData[1]);
+                doctorById.setEmail(doctorData[2]);
+                doctorById.setPhone(doctorData[3]);
+                doctorById.setProfession(Profession.valueOf(doctorData[4]));
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("Please enter the details one by one");
+            } catch (IllegalArgumentException e) {
+                System.out.println("Please enter the data correctly!");
+            }
             System.out.println("doctor was updated");
-
         } else {
             System.out.println("Doctor with " + id + " dose not exists!");
         }
@@ -120,22 +127,37 @@ public class MedicalCenterDemo implements Commands {
 
     private static void addDoctor() {
         System.out.println("Please input id,name,surname,email,phoneNumber,profession");
+        doctorProfession();
         String doctorDataStr = scanner.nextLine();
         String[] doctorData = doctorDataStr.split(",");
         String doctorId = doctorData[0];
         Doctor doctorById = personStorage.getDoctorById(doctorId);
         if (doctorById == null) {
             Doctor doctor = new Doctor();
-            doctor.setId(doctorId);
-            doctor.setName(doctorData[1]);
-            doctor.setSurname(doctorData[2]);
-            doctor.setEmail(doctorData[3]);
-            doctor.setPhone(doctorData[4]);
-            doctor.setProfession(doctorData[5]);
+            try {
+                doctor.setId(doctorId);
+                doctor.setName(doctorData[1]);
+                doctor.setSurname(doctorData[2]);
+                doctor.setEmail(doctorData[3]);
+                doctor.setPhone(doctorData[4]);
+                doctor.setProfession(Profession.valueOf(doctorData[5]));
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("Please enter the details one by one");
+            } catch (IllegalArgumentException e) {
+                System.out.println("Please enter the data correctly!");
+            }
             personStorage.add(doctor);
             System.out.println("doctor added");
         } else {
             System.out.println("Doctor with " + doctorId + " already exists");
+        }
+    }
+
+    private static void doctorProfession() {
+        Profession[] doctorProfession = Profession.values();
+        System.out.println("Please choose doctor profession");
+        for (Profession professions : doctorProfession) {
+            System.out.println(professions);
         }
     }
 }
