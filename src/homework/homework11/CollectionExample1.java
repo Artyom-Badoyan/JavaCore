@@ -48,6 +48,8 @@ public class CollectionExample1 implements Commands {
             printList(list);
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Please input the correct index:");
+        } catch (NumberFormatException e) {
+            System.out.println("Please write correct index:");
         }
     }
 
