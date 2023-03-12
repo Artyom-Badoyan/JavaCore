@@ -65,10 +65,8 @@ public class CollectionExample1 implements Commands {
         printList(list);
         System.out.println("Please input name:");
         String name = scanner.nextLine();
-        for (String nameElements : list) {
-            if (nameElements.contains(name)) {
-                return true;
-            }
+        if (list.contains(name)) {
+            return true;
         }
         return false;
     }
