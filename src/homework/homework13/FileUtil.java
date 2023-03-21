@@ -1,64 +1,159 @@
 package homework.homework13;
 
-import java.io.File;
+import java.io.*;
 import java.util.Scanner;
 
 public class FileUtil {
 
     private static Scanner scanner = new Scanner(System.in);
 
+
     public static void main(String[] args) {
-        File file = new File("text5.txt");
-        fileSearch(file, file.getName());
-
+        searchFileName();
+        searchFileByKeyword();
+        searchKeywordInStringOutputLine();
+        printSizeOfFiles();
+        createFile();
     }
 
-    //այս մեթոդը պետք է սքաններով վերցնի երկու string.
-    // 1 - path թե որ ֆոլդերում ենք փնտրելու
-    // 2 - fileName - ֆայլի անունը, որը փնտրում ենք։
-    //Որպես արդյունք պտի ծրագիրը տպի true եթե կա էդ ֆայլը էդ պապկի մեջ, false եթե չկա։
-    static boolean fileSearch(File file, String fileName) {
-        System.out.println("Please input path folder");
-        String pathFolder = scanner.nextLine();
-        System.out.println("Please input name folder");
-        String nameFolder = scanner.nextLine();
-        if (file.getPath().equals(pathFolder) && file.getName().equals(nameFolder)) {
-            return true;
+    private static void createFile() {
+        System.out.println("Please input folder path");
+        String folderPath = scanner.nextLine();
+        System.out.println("Please input file name");
+        String fileName = scanner.nextLine();
+        System.out.println("Please input content");
+        String content = scanner.nextLine();
+        createFileWithContent(folderPath, fileName, content);
+    }
+
+    private static void printSizeOfFiles() {
+        System.out.println("Please input folder path");
+        String folderPath = scanner.nextLine();
+        printSizeOfPackage(folderPath);
+    }
+
+    private static void searchKeywordInStringOutputLine() {
+        System.out.println("Please input file path");
+        String filePath = scanner.nextLine();
+        System.out.println("Please input keyword");
+        String keyword = scanner.nextLine();
+        findLines(filePath, keyword);
+    }
+
+    private static void searchFileByKeyword() {
+        System.out.println("Please input folder path");
+        String folderPath = scanner.nextLine();
+        System.out.println("Please input keyword");
+        String keyword = scanner.nextLine();
+        contentSearch(folderPath, keyword);
+    }
+
+    private static void searchFileName() {
+        System.out.println("Please input folder folderPath");
+        String folderPath = scanner.nextLine();
+        System.out.println("Please input folder folderName");
+        String folderName = scanner.nextLine();
+        fileSearch(folderPath, folderName);
+    }
+
+    private static void fileSearch(String folder, String fileName) {
+        File folderFile = new File(folder);
+        if (!folderFile.isDirectory()) {
+            System.out.println("Wrong folder path:");
+            return;
         }
-        return false;
+        File[] listFiles = folderFile.listFiles();
+        boolean isFound = false;
+        for (File file : listFiles) {
+            if (file.isFile() && file.getName().contains(fileName)) {
+                isFound = true;
+                break;
+            }
+        }
+        System.out.println(isFound);
     }
 
-
-    //այս մեթոդը պետք է սքաններով վերցնի երկու string.
-    // 1 - path թե որ ֆոլդերում ենք փնտրելու
-    // 2 - keyword - ինչ որ բառ
-    // Մեթոդը պետք է նշված path-ում գտնի բոլոր .txt ֆայլերը, և իրենց մեջ փնտրի
-    // մեր տված keyword-ը, եթե գտնի, պետք է տպի տվյալ ֆայլի անունը։
-    static void contentSearch() {
-
+    public static void contentSearch(String folder, String keyword) {
+        File folderFile = new File(folder);
+        if (!folderFile.isDirectory()) {
+            System.out.println("Wrong folder path:");
+            return;
+        }
+        File[] listFiles = folderFile.listFiles();
+        for (File file : listFiles) {
+            if (file.isFile() && file.getName().endsWith(".txt")) {
+                try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
+                    String line = null;
+                    while ((line = bufferedReader.readLine()) != null) {
+                        if (line.contains(keyword)) {
+                            System.out.println(file);
+                            break;
+                        }
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
-    //այս մեթոդը պետք է սքաններով վերցնի երկու string.
-    // 1 - txtPath txt ֆայլի փաթը
-    // 2 - keyword - ինչ որ բառ
-    // տալու ենք txt ֆայլի տեղը, ու ինչ որ բառ, ինքը տպելու է էն տողերը, որտեղ գտնի էդ բառը։
-    static void findLines() {
-
+    static void findLines(String filePath, String keyword) {
+        File file = new File(filePath);
+        if (!file.exists() || !file.getName().endsWith(".txt")) {
+            System.out.println("Wrong file path:");
+            return;
+        }
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
+            String line = null;
+            int lineNumber = 1;
+            while ((line = bufferedReader.readLine()) != null) {
+                if (line.contains(keyword)) {
+                    System.out.println(lineNumber + ". " + line);
+                }
+                lineNumber++;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    //այս մեթոդը պետք է սքաններով վերցնի մեկ string.
-    // 1 - path թե որ ֆոլդերի չափն ենք ուզում հաշվել
-    // ֆոլդերի բոլոր ֆայլերի չափսերը գումարում ենք իրար, ու տպում
-    static void printSizeOfPackage() {
-
+    static void printSizeOfPackage(String folderPath) {
+        File folderFile = new File(folderPath);
+        if (!folderFile.isDirectory()) {
+            System.out.println("Wrong folder path:");
+            return;
+        }
+        File[] files = folderFile.listFiles();
+        long size = 0;
+        for (File file : files) {
+            if (file.isFile()) {
+                size += file.length();
+            }
+        }
+        System.out.println("size: " + size / 1024 + " KB");
     }
 
-    //այս մեթոդը պետք է սքաններով վերցնի երեք string.
-    // 1 - path պապկի տեղը, թե որտեղ է սարքելու նոր ֆայլը
-    // 2 - fileName ֆայլի անունը, թե ինչ անունով ֆայլ է սարքելու
-    // 3 - content ֆայլի պարունակությունը։ Այսինքն ստեղծված ֆայլի մեջ ինչ է գրելու
-    // որպես արդյունք պապկի մեջ սարքելու է նոր ֆայլ, իրա մեջ էլ լինելու է content-ով տվածը
-    static void createFileWithContent() {
-
+    static void createFileWithContent(String folderPath, String fileName, String content) {
+        File folderFile = new File(folderPath);
+        if (!folderFile.isDirectory()) {
+            System.out.println("Wrong folder path:");
+            return;
+        }
+        File file = new File(folderFile, fileName);
+        if (file.exists()) {
+            System.out.println("File already exists!");
+            return;
+        }
+        try {
+            boolean newFile = file.createNewFile();
+            if (newFile) {
+                try (BufferedWriter fileWriter = new BufferedWriter(new FileWriter(file))) {
+                    fileWriter.write(content);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
